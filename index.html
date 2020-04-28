@@ -6,6 +6,8 @@
 		<script src="static/libs/phaser.js"></script>
 		<script src="static/js/Boot.js"></script>
 		<script src="static/js/Preloader.js"></script>
+		<script src="static/js/StartMenu.js"></script>
+		<script src="static/js/Game.js"></script>
 		<link rel="stylesheet" href="static/css/style.css">
 	</head>
 	<body>
@@ -16,6 +18,8 @@
 				var game = new Phaser.Game(540, 960, Phaser.AUTO, 'gameContainer');
 				game.state.add('Boot', BunnyDefender.Boot);
 				game.state.add('Preloader', BunnyDefender.Preloader);
+				game.state.add('StartMenu', BunnyDefender.StartMenu);
+				game.state.add('Game', BunnyDefender.Game);
 				game.state.start('Boot');
 			};
 		</script>
