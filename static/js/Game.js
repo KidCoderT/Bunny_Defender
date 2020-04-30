@@ -4,6 +4,7 @@ BunnyDefender.Game = function(game) {
 	this.bunnyGroup;
 	this.totalSpacerocks;
 	this.spacerockgroup;
+	this.burst;
 };
 
 BunnyDefender.Game.prototype = {
@@ -18,6 +19,7 @@ BunnyDefender.Game.prototype = {
 		this.add.image(0, 800, 'hill');
 		this.buildBunnies();
 		this.buildSpaceRocks();
+		this.buildEmitter();
 	},
 
 	buildBunnies: function() {
@@ -84,6 +86,22 @@ BunnyDefender.Game.prototype = {
 	respawnRock: function(r) {
 		r.reset(this.rnd.integerInRange(0, this.world.width), this.rnd.realInRange(-1500, 0));
 		r.body.velocity.y = this.rnd.integerInRange(200, 400);
+	},
+	
+	buildEmitter:function() {
+		this.burst = this.add.emitter(0, 0, 80);
+		this.burst.minParticleScale = 0.3;
+		this.burst.maxParticleScale = 1.2;
+		this.burst.minParticleSpeed.setTo(-30, 30);
+		this.burst.maxParticleSpeed.setTo(30, -30);
+		this.burst.makeParticles('explosion');
+		this.input.onDown.add(this.fireBurst, this);
+	},
+	
+	fireBurst: function(pointer) {
+		this.burst.emitX = pointer.x;
+		this.burst.emitY = pointer.y;
+		this.burst.start(true, 1500, null, 20);
 	},
 	
 	update: function() {}

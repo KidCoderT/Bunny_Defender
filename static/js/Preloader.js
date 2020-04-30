@@ -21,6 +21,7 @@ BunnyDefender.Preloader.prototype = {
 		this.load.image('sky', 'static/images/sky.png');
 		this.load.atlasXML('bunny', 'static/images/spritesheets/bunny.png', 'static/images/spritesheets/bunny.xml');
 		this.load.atlasXML('spacerock', 'static/images/spritesheets/SpaceRock.png', 'static/images/spritesheets/SpaceRock.xml');
+		this.load.image('explosion', 'static/images/explosion.png')
 	},
 
 	create: function () {
