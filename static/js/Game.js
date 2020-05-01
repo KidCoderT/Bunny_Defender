@@ -7,15 +7,25 @@ BunnyDefender.Game = function(game) {
 	this.burst;
 	this.gameover;
 	this.countdown;
+	this.overmessage;
+	this.secondsElapsed;
+	this.timer;
 };
 
 BunnyDefender.Game.prototype = {
 	create: function() {
 		this.gameover = false;
+		this.secondsElapsed = 0;
+		this.timer = this.time.create(false);
+		this.timer.loop(1000, this.updateSeconds, this)
 		this.totalBunnies = 20;
 		this.totalSpacerocks = 13;
 		this.buildWorld();
 		this.countdown = this.add.bitmapText(10, 10, 'eightbitwonder', 'Bunnies Left: ' + this.totalBunnies, 20)
+	},
+	
+	updateSeconds: function() {
+		this.secondsElapsed++;
 	},
 
 	buildWorld: function() {
@@ -24,6 +34,7 @@ BunnyDefender.Game.prototype = {
 		this.buildBunnies();
 		this.buildSpaceRocks();
 		this.buildEmitter();
+		this.timer.start();
 	},
 
 	buildBunnies: function() {
@@ -130,9 +141,17 @@ BunnyDefender.Game.prototype = {
 		if (this.totalBunnies <= 0) {
 			this.gameover = true;
 			this.countdown.setText('Bunnies Left: 0');
+			this.overmessage = this.add.bitmapText(this.world.centerX-180, this.world.centerY-40, 'eightbitwonder', 'GAME OVER\n\n' + this.secondsElapsed, 42);
+			this.overmessage.align = "center";
+			this.overmessage.inputEnabled = true;
+			this.overmessage.events.onInputDown.addOnce(this.quitGame, this);
 		} else {
 			this.countdown.setText('Bunnies Left: ' + this.totalBunnies);
 		}
+	},
+	
+	quitGame: function() {
+		this.state.start('StartMenu');
 	},
 	
 	friendlyFire: function(b, e) {
