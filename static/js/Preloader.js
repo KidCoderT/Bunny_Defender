@@ -23,6 +23,10 @@ BunnyDefender.Preloader.prototype = {
 		this.load.atlasXML('spacerock', 'static/images/spritesheets/SpaceRock.png', 'static/images/spritesheets/SpaceRock.xml');
 		this.load.image('explosion', 'static/images/explosion.png');
 		this.load.image('bunnyghost', 'static/images/ghost.png');
+		this.load.audio('explosion_audio', 'static/audio/explosion.mp3');
+		this.load.audio('hurt_audio', 'static/audio/hurt.mp3');
+		this.load.audio('select_audio', 'static/audio/select.mp3');
+		this.load.audio('game_audio', 'static/audio/bgm.mp3');
 	},
 
 	create: function () {
@@ -30,7 +34,9 @@ BunnyDefender.Preloader.prototype = {
 	},
 
 	update: function () {
-	   	this.ready = true;
-		this.state.start('StartMenu');
+		if (this.cache.isSoundDecoded && this.ready == false) {
+			this.ready = true;
+			this.state.start('StartMenu');
+		}
 	}
 };
