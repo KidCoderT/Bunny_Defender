@@ -6,6 +6,7 @@ BunnyDefender.Game = function(game) {
 	this.spacerockgroup;
 	this.burst;
 	this.gameover;
+	this.countdown;
 };
 
 BunnyDefender.Game.prototype = {
@@ -14,6 +15,7 @@ BunnyDefender.Game.prototype = {
 		this.totalBunnies = 20;
 		this.totalSpacerocks = 13;
 		this.buildWorld();
+		this.countdown = this.add.bitmapText(10, 10, 'eightbitwonder', 'Bunnies Left: ' + this.totalBunnies, 20)
 	},
 
 	buildWorld: function() {
@@ -127,6 +129,9 @@ BunnyDefender.Game.prototype = {
 	checkBunniesLeft: function() {
 		if (this.totalBunnies <= 0) {
 			this.gameover = true;
+			this.countdown.setText('Bunnies Left: 0');
+		} else {
+			this.countdown.setText('Bunnies Left: ' + this.totalBunnies);
 		}
 	},
 	
